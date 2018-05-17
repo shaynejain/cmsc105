@@ -1,0 +1,305 @@
+
+	int choice = 0;
+	int size = 0;
+	int label = 0;
+	int intNum = 0;
+	int repeat = 0;
+	float floatNum = 0;
+	String title = "";
+	String strCat = "";
+
+	DataSampling sample = new DataSampling();
+
+	do {
+	System.out.println("\n\n");
+	System.out.println("*** SUMMARIZING AND PRESENTING DATA ***");
+	System.out.println();
+	System.out.println("[1] Categorical");
+	System.out.println("[2] Numerical");
+	System.out.println("[3] Quit");
+	System.out.println();
+	System.out.println("Please choose the type of data you want: > ");
+	do {
+		try {
+			choice = input.nextInt();
+			if(choice < 1 || choice > 3) {
+				throw new Exception();
+			}
+		}catch(Exception e) {
+			System.out.println("Invalid input! Please try again.");
+		}
+		input.nextLine();
+	}while(choice < 1 || choice > 3);
+
+	if(choice >= 1 && choice <= 2) {
+		System.out.println();
+		System.out.println("Enter a brief title for data description. > ");
+		title = input.nextLine();
+
+		do {
+			System.out.println();
+			System.out.println("Please enter the number of data. >");
+			try {
+				size = input.nextInt();
+				if(size < 3) {
+					throw new Exception();
+				}
+			} catch(Exception e) {
+				System.out.println("Invalid input! Please try again.");
+			}
+			input.nextLine();
+		} while(size < 3);
+
+		if(choice == 1) {
+			System.out.println("\n\n");
+			System.out.println("*** CATEGORICAL DATA ***");
+			System.out.println();
+			System.out.println("[1] Numeric Label");
+			System.out.println("[2] Alphabetic Label");
+			System.out.println("[3] String Label");
+			System.out.println("Please enter the data label. > ");
+			do {
+				try {
+					label = input.nextInt();
+					if(label < 1 || label > 3) {
+						throw new Exception();
+					}
+				} catch(Exception e) {
+					System.out.println("Invalid input! Please try again.");
+				}
+				input.nextLine();
+			} while(label < 1 || label > 3);
+		}
+		else
+		if(choice == 2) {
+			System.out.println("\n\n");
+			System.out.println("*** NUMERICAL DATA ***");
+			System.out.println();
+			System.out.println("[4] Integer Label");
+			System.out.println("[5] Float Label");
+			System.out.println("Please enter the data label. > ");
+			do {
+				try {
+					label = input.nextInt();
+					if(label < 4 || label > 5) {
+						throw new Exception();
+					}
+				} catch(Exception e) {
+					System.out.println("Invalid input! Please try again.");
+				}
+				input.nextLine();
+			} while(label < 4 || label > 5);
+		}
+
+		sample = new DataSampling(label, title);
+
+		if(label == 1) {
+			System.out.println("\n\n");
+			System.out.println("*** CATEGORICAL DATA: Numeric Label ***");
+			for(int i = 0; i < size; i++) {
+				System.out.println("Sample " + (i + 1) + " > ");
+				do {
+					try {
+						strCat = input.next();
+						if(sample.isNumeric(strCat) == false) {
+							throw new Exception();
+						}
+					} catch(Exception e) {
+						System.out.println("Invalid input! Please try again.");
+						strCat = "";
+					}
+					input.nextLine();
+				} while(strCat == "");
+				sample.list.add(strCat);
+			}
+		}
+		else
+		if(label == 2) {
+			System.out.println("\n\n");
+			System.out.println("*** CATEGORICAL DATA: Alphabetic Label ***");
+			for(int i = 0; i < size; i++) {
+				System.out.println("Sample " + (i + 1) + " > ");
+				do {
+					try {
+						strCat = input.next();
+						if(sample.isAlphabetic(strCat) == false) {
+							throw new Exception();
+						}
+					} catch(Exception e) {
+						System.out.println("Invalid input! Please try again.");
+						strCat = "";
+					}
+					input.nextLine();
+				} while(strCat == "");
+				sample.list.add(strCat);
+			}
+		}
+		else
+		if(label == 3) {
+			System.out.println("\n\n");
+			System.out.println("*** CATEGORICAL DATA: String Label ***");
+			for(int i = 0; i < size; i++) {
+				System.out.println("Sample " + (i + 1) + " > ");
+				do {
+					try {
+						strCat = input.next();
+					} catch(Exception e) {
+						System.out.println("Invalid input! Please try again.");
+						strCat = "";
+					}
+					input.nextLine();
+				} while(strCat == "");
+				sample.list.add(strCat);
+			}
+		}
+		else
+		if(label == 4) {
+			System.out.println("\n\n");
+			System.out.println("*** NUMERICAL DATA: Integer Label");
+			for(int i = 0; i < size; i++) {
+				System.out.println("Sample " + (i + 1) + " > ");
+				do {
+					try {
+						intNum = input.nextInt();
+						if(intNum < 1) {
+							throw new Exception();
+						}
+					} catch(Exception e) {
+						System.out.println("Invalid input! Please try again.");
+					}
+					input.nextLine();
+				} while(intNum < 1);
+				sample.list.add(intNum);
+			}
+		}
+		else 
+		if(label == 5) {
+			System.out.println("\n\n");
+			System.out.println("*** NUMERICAL DATA: Float Label");
+			for(int i = 0; i < size; i++) {
+				do {
+					try {
+						System.out.println("Sample " + (i + 1) + " > ");
+						floatNum = input.nextFloat();
+						if(floatNum < 1) {
+							throw new Exception();
+						}
+					} catch(Exception e) {
+						System.out.println("Invalid input! Please try again.");
+					}
+					input.nextLine();
+				} while(floatNum < 1);
+				sample.list.add(floatNum);
+			}
+		}
+
+		sample.display();
+		System.out.println("\nPress ENTER to continue...");
+        input.nextLine();
+        try{
+          Thread.sleep(2000);
+        } catch(InterruptedException e) {
+          Thread.currentThread().interrupt();
+        }
+				
+				do {
+					if(label >= 1 && label <= 3) {
+						sample.displaySummaryTable();
+					}
+					
+					if(label == 4) {
+						int choice1 = 0;
+						sample.displayIntFDT(choice1);
+						System.out.println("\n\n");
+						System.out.println("[1] First CL");
+						System.out.println("[2] Last CL");
+						System.out.println("[3] Both CLs");
+						System.out.println("What class limit/s do you want to collapse? > ");
+						
+						do {
+							try {
+								choice1 = input.nextInt();
+								if(choice1 < 1 || choice1 > 3) {
+									throw new Exception();
+								}
+							} catch(Exception e) {
+								System.out.println("Invalid input! Please try again.");
+							}
+							input.nextLine();
+						} while(choice1 < 1 || choice1 > 3);
+						sample.displayIntFDT(choice1);
+					}
+					
+					if(label == 5) {
+						int choice2 = 0;
+						sample.displayFloatFDT(choice2);
+						System.out.println("\n\n");
+						System.out.println("[1] First CL");
+						System.out.println("[2] Last CL");
+						System.out.println("[3] Both CLs");
+						System.out.println("What class limit/s do you want to collapse? > ");
+						
+						do {
+							try {
+								choice2 = input.nextInt();
+								if(choice2 < 1 || choice2 > 3) {
+									throw new Exception();
+								}
+							} catch(Exception e) {
+								System.out.println("Invalid input! Please try again.");
+							}
+							input.nextLine();
+						} while(choice2 < 1 || choice2 > 3);
+						sample.displayFloatFDT(choice2);
+					}
+					
+					if(label >= 1 && label <= 3) {
+						int choice3 = 0;
+						System.out.println("\n\n");
+						System.out.println("Do you want to display the graph for the table?");
+						System.out.println("[1] YES \n[2] NO");
+						System.out.println("> ");
+						do {
+							try {
+								choice3 = input.nextInt();
+								if(choice3 == 1) {
+									sample.displayGraph();
+								}
+								if(choice3 < 1 || choice3 > 2) {
+									throw new Exception();
+								}
+							} catch(Exception e) {
+								System.out.println("Invalid input! Please try again.");
+							}
+							input.nextLine();
+						} while(choice3 < 1 || choice3 > 2);
+					}
+					
+					int choice4 = 0;
+					System.out.println("\n\n");
+					System.out.println("Do you want to display the table again? > ");
+					System.out.println("[1] YES \n[2] NO");
+					System.out.println("> ");
+					
+					do {
+						try {
+							choice4 = input.nextInt();
+							if(choice4 < 1 || choice4 > 2) {
+								throw new Exception();
+							}
+						} catch(Exception e) {
+							System.out.println("Invalid input! Please try again.");
+						}
+						input.nextLine();
+					} while(choice4 < 1 || choice4 > 2);
+					
+					if(choice4 == 2) {
+						repeat = 1;
+					}
+					else {
+						repeat = 0;
+					}
+				} while(repeat == 0);
+			}
+		} while(choice != 3);
+	
